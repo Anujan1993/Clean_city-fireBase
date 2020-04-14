@@ -2,6 +2,7 @@ package com.example.clean_city;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (authenticate()==true){
 
+        }
+        else{
+            startActivity(new Intent(MainActivity.this, Login.class));
         }
     }
 

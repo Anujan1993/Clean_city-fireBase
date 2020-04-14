@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "443051367708",
+    "firebase_url": "https://clean-city-1ce1d.firebaseio.com",
+    "project_id": "clean-city-1ce1d",
+    "storage_bucket": "clean-city-1ce1d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443051367708:android:12ec9faca95de977c36ed9",
+        "android_client_info": {
+          "package_name": "com.example.clean_city"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443051367708-vjt0uns9sr031hn47rtcqo1osl6buhr3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDszCxY_GDmKgURzqU_Ca7eLKv47AQ0QzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443051367708-vjt0uns9sr031hn47rtcqo1osl6buhr3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
