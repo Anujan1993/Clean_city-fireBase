@@ -1,22 +1,29 @@
 package com.example.clean_city;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     Button LoginBtn,Register_Btn;
-    EditText LoginName, LoginPassword;
+    EditText LoginEmail, LoginPassword;
     FirebaseAuth mFriebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +31,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
 
         mFriebaseAuth = FirebaseAuth.getInstance();
-        LoginName = (EditText)findViewById(R.id.Login_Name);
+        LoginEmail = (EditText)findViewById(R.id.Login_email);
         LoginPassword = (EditText)findViewById(R.id.Login_password);
         LoginBtn = (Button)findViewById(R.id.Login);
         Register_Btn = (Button)findViewById(R.id.LoginRegister);
@@ -32,19 +39,35 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         LoginBtn.setOnClickListener(this);
         Register_Btn.setOnClickListener(this);
 
-
+//        authStateListener = new FirebaseAuth.AuthStateListener() {
+//            @RequiresApi(api = Build.VERSION_CODES.O)
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                FirebaseUser firebaseUser = mFriebaseAuth.getCurrentUser();
+//                if (firebaseUser == null){
+//                    Toast.makeText(Login.this,"Wrong Name Password",Toast.LENGTH_LONG).show();
+//                    FirebaseUser currentUser = mFriebaseAuth.getCurrentUser();
+//                }
+//                else {
+//                    Toast.makeText(Login.this,"You are logged in",Toast.LENGTH_LONG).show();
+//                    Intent intent = new Intent(Login.this, MainActivity.class);
+//                    startActivity(intent);
+//                }
+//            }
+//        };
     }
+
 
     @Override
     public void onClick(View v) {
 
         switch (v.getId()){
             case R.id.Login:
-                String LoginN = LoginName.getText().toString();
+                String LoginN = LoginEmail.getText().toString();
                 String Pass = LoginPassword.getText().toString();
                 if (LoginN.isEmpty()) {
-                    LoginName.setError("Please Enter the Name");
-                    LoginName.requestFocus();
+                    LoginEmail.setError("Please Enter the Name");
+                    LoginEmail.requestFocus();
                 }
                 else if(Pass.isEmpty()){
                     LoginPassword.setError("Please Enter the password");
@@ -53,11 +76,32 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 else if(LoginN.isEmpty() && Pass.isEmpty()){
                     Toast.makeText(Login.this,"Fields are empty",Toast.LENGTH_LONG).show();
                 }
-
+                else {
+                    mFriebaseAuth.signInWithEmailAndPassword(LoginN,Pass)
+                            .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()){
+                                startActivity(new Intent(Login.this,MainActivity.class));
+                            }
+                            else {
+                                Toast.makeText(Login.this,"Login Error",Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }
                 break;
             case R.id.LoginRegister:
                 startActivity(new Intent(this, Registration.class));
                 break;
         }
+
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //mFriebaseAuth.addAuthStateListener(authStateListener);
+        FirebaseUser currentUser = mFriebaseAuth.getCurrentUser();
+    }
+
 }
