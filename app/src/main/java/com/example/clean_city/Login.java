@@ -18,12 +18,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.UUID;
+
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     Button LoginBtn,Register_Btn;
     EditText LoginEmail, LoginPassword;
     FirebaseAuth mFriebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,22 +42,23 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         LoginBtn.setOnClickListener(this);
         Register_Btn.setOnClickListener(this);
 
-//        authStateListener = new FirebaseAuth.AuthStateListener() {
-//            @RequiresApi(api = Build.VERSION_CODES.O)
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                FirebaseUser firebaseUser = mFriebaseAuth.getCurrentUser();
-//                if (firebaseUser == null){
-//                    Toast.makeText(Login.this,"Wrong Name Password",Toast.LENGTH_LONG).show();
-//                    FirebaseUser currentUser = mFriebaseAuth.getCurrentUser();
-//                }
-//                else {
-//                    Toast.makeText(Login.this,"You are logged in",Toast.LENGTH_LONG).show();
-//                    Intent intent = new Intent(Login.this, MainActivity.class);
-//                    startActivity(intent);
-//                }
-//            }
-//        };
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser firebaseUser = mFriebaseAuth.getCurrentUser();
+                if (firebaseUser != null){
+                    Toast.makeText(Login.this,"You are logged in",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Login.this, MainActivity.class);
+                    startActivity(intent);
+
+                }
+                else {
+                    Toast.makeText(Login.this,"Wrong Name Password",Toast.LENGTH_LONG).show();
+                    FirebaseUser currentUser = mFriebaseAuth.getCurrentUser();
+                }
+            }
+        };
     }
 
 
@@ -83,6 +87,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
                                 startActivity(new Intent(Login.this,MainActivity.class));
+                               // FirebaseUser user = mFriebaseAuth.getCurrentUser();
+                                //UUID(user);
                             }
                             else {
                                 Toast.makeText(Login.this,"Login Error",Toast.LENGTH_LONG).show();
@@ -100,8 +106,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onStart() {
         super.onStart();
-        //mFriebaseAuth.addAuthStateListener(authStateListener);
-        FirebaseUser currentUser = mFriebaseAuth.getCurrentUser();
+        mFriebaseAuth.addAuthStateListener(authStateListener);
+        //currentUser = mFriebaseAuth.getCurrentUser();
+
+
     }
 
 }

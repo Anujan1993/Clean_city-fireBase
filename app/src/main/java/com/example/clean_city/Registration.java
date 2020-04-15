@@ -11,8 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -98,6 +101,17 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 }
                 else{
                     if (Pass.equals(ConfP)) {
+
+                        mFriebaseAuth.createUserWithEmailAndPassword(email_ad,Pass)
+                                .addOnCompleteListener(Registration.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(task.isSuccessful()) {
+                                    Toast.makeText(Registration.this,"DataAdded",Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+
                         member.setName(LoginN);
                         member.setEmail(email_ad);
                         member.setAddress(Address);
