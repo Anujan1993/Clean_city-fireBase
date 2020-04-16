@@ -55,7 +55,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         // Access a Cloud Firestore instance from your Activity
          db = FirebaseFirestore.getInstance();
 
-        Register.setOnClickListener(this);
+         Register.setOnClickListener(this);
 
     }
 
@@ -108,6 +108,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()) {
                                     Toast.makeText(Registration.this,"DataAdded",Toast.LENGTH_LONG).show();
+                                    
                                 }
                             }
                         });
