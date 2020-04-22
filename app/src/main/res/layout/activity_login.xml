@@ -8,7 +8,7 @@
     android:background="@drawable/drawable_purple_gradient">
 
     <Button
-        android:id="@+id/Login"
+        android:id="@+id/SendEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="124dp"
@@ -36,7 +36,7 @@
         android:textColorHint="#B8B8B8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Login_email" />
+        app:layout_constraintTop_toBottomOf="@+id/reset_email" />
 
     <Button
         android:id="@+id/LoginRegister"
@@ -52,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Login_password" />
 
     <EditText
-        android:id="@+id/Login_email"
+        android:id="@+id/reset_email"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginLeft="20dp"
@@ -68,7 +68,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_uname"
+        app:layout_constraintTop_toBottomOf="@+id/Up_uname"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -85,5 +85,19 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/forGetPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Forget Password"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LoginRegister" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

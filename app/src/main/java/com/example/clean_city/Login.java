@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,12 +19,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.UUID;
-
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     Button LoginBtn,Register_Btn;
     EditText LoginEmail, LoginPassword;
+    TextView forgetPss;
     FirebaseAuth mFriebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     FirebaseUser currentUser;
@@ -34,13 +34,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
 
         mFriebaseAuth = FirebaseAuth.getInstance();
-        LoginEmail = (EditText)findViewById(R.id.Login_email);
+        LoginEmail = (EditText)findViewById(R.id.reset_email);
         LoginPassword = (EditText)findViewById(R.id.Login_password);
-        LoginBtn = (Button)findViewById(R.id.Login);
+        LoginBtn = (Button)findViewById(R.id.SendEmail);
+        forgetPss = (TextView)findViewById(R.id.forGetPass);
         Register_Btn = (Button)findViewById(R.id.LoginRegister);
 
         LoginBtn.setOnClickListener(this);
         Register_Btn.setOnClickListener(this);
+        forgetPss.setOnClickListener(this);
 
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -54,7 +56,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                 }
                 else {
-                    Toast.makeText(Login.this,"Wrong Name Password",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(Login.this,"Wrong Name Password",Toast.LENGTH_LONG).show();
                     FirebaseUser currentUser = mFriebaseAuth.getCurrentUser();
                 }
             }
@@ -66,7 +68,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
 
         switch (v.getId()){
-            case R.id.Login:
+            case R.id.SendEmail:
                 String LoginN = LoginEmail.getText().toString();
                 String Pass = LoginPassword.getText().toString();
                 if (LoginN.isEmpty()) {
@@ -100,16 +102,17 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             case R.id.LoginRegister:
                 startActivity(new Intent(this, Registration.class));
                 break;
+            case R.id.forGetPass:
+                startActivity(new Intent(this, ForgetPassword.class));
+                break;
         }
 
     }
     @Override
     protected void onStart() {
         super.onStart();
+        //mFriebaseAuth.signOut();
         mFriebaseAuth.addAuthStateListener(authStateListener);
-        //currentUser = mFriebaseAuth.getCurrentUser();
-
-
     }
 
 }

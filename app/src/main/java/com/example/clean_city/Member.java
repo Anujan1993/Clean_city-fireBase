@@ -1,7 +1,7 @@
 package com.example.clean_city;
 
 public class Member {
-    private String Name,Email,Address,Phone,Password;
+    private String Name,Email,Address,Phone,UuID;
 
     public Member() {
 
@@ -9,6 +9,14 @@ public class Member {
 
     public String getName() {
         return Name;
+    }
+
+    public String getUuID() {
+        return UuID;
+    }
+
+    public void setUuID(String uuID) {
+        UuID = uuID;
     }
 
     public void setName(String name) {
@@ -35,11 +43,4 @@ public class Member {
         Phone = phone;
     }
 
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
-    }
 }
